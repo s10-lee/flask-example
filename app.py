@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Index page!'
+    return 'Test Amazon pipeline.'
 
 
 if __name__ == '__main__':
