@@ -4,7 +4,7 @@ application = Flask(__name__)
 html = '''
     <html>\n
     <head> <title>EB Flask Test</title> </head>\n
-    <body><h1>AWS pipeline finally !</h1></body>\n
+    <body><h1>new pipeline</h1></body>\n
     </html>
     '''
 
