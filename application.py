@@ -36,9 +36,6 @@ class User(db.Model):
 
     @staticmethod
     def encode_auth_token(user_id):
-
-        print('encode_auth_token() !!!')
-
         try:
             payload = {
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, minutes=10),
@@ -56,9 +53,6 @@ class User(db.Model):
 
     @staticmethod
     def decode_auth_token(auth_token):
-        print('DECODE !')
-        print(auth_token)
-        print(application.config.get('SECRET_KEY'))
         try:
             payload = jwt.decode(auth_token, application.config.get('SECRET_KEY'))
             is_blacklisted_token = BlacklistToken.check_blacklist(auth_token)
@@ -152,7 +146,6 @@ def auth_login():
             }
             return make_response(jsonify(response)), 404
     except Exception as e:
-        print('Exception - auth_login()', e)
         response = {
             'status': 'fail',
             'message': 'Try again'
