@@ -1,19 +1,19 @@
 from flask import Flask
-application = Flask(__name__)
+app = Flask(__name__)
 
 html = '''
     <html>\n
     <head> <title>EB Flask Test</title> </head>\n
-    <body><h1>new pipeline !!</h1></body>\n
+    <body><h1>application app</h1></body>\n
     </html>
     '''
 
 
-@application.route('/')
+@app.route('/')
 def index():
     return html
 
 
 if __name__ == '__main__':
-    application.debug = True
-    application.run(host='0.0.0.0')
+    app.debug = True
+    app.run(host='0.0.0.0')
