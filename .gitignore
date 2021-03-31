@@ -1,6 +1,7 @@
 # Mac OSX
 .DS_Store
 .idea
+venv
 
 
 
