@@ -5,6 +5,7 @@ from flask import Flask, request, make_response, jsonify
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
+from flask_swagger_ui import get_swaggerui_blueprint
 
 
 application = Flask(__name__)
@@ -16,7 +17,9 @@ bcrypt = Bcrypt(application)
 db = SQLAlchemy(application)
 
 
+#
 # Models
+#
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -77,17 +80,15 @@ class BlacklistToken(db.Model):
         self.token = token
         self.blacklisted_on = datetime.datetime.now()
 
-    def __repr__(self):
-        return f'<id: token: {self.token}>'
-
     @staticmethod
     def check_blacklist(auth_token):
         return BlacklistToken.query.filter_by(token=str(auth_token)).first()
 
 
-
-
-@application.route('/register', methods=['POST'])
+#
+# Views
+#
+@application.route('/api/register', methods=['POST'])
 def auth_register():
     post_data = request.get_json()
     user = User.query.filter_by(email=post_data.get('email')).first()
@@ -108,7 +109,7 @@ def auth_register():
             }
             return make_response(jsonify(response)), 201
         except Exception as e:
-            print(e)
+            print(e, flush=True)
             response = {
                 'status': 'fail',
                 'message': 'Some error occurred. Please try again.'
@@ -123,7 +124,7 @@ def auth_register():
 
 
 
-@application.route('/login', methods=['POST'])
+@application.route('/api/login', methods=['POST'])
 def auth_login():
     post_data = request.get_json()
     try:
@@ -154,7 +155,7 @@ def auth_login():
 
 
 
-@application.route('/status', methods=['GET'])
+@application.route('/api/status', methods=['GET'])
 def auth_status():
     auth_header = request.headers.get('Authorization')
     if auth_header:
