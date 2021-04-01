@@ -5,7 +5,7 @@ application = Flask(__name__)
 
 @application.route('/')
 def index():
-    return "Application", 200
+    return 'Application no debug !', 200
 
 
 if __name__ == '__main__':
