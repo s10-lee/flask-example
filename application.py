@@ -1,12 +1,12 @@
 from flask import Flask
 
-application = Flask(__name__)
+app = Flask(__name__)
 
 
-@application.route('/')
+@app.route('/')
 def index():
     return 'Application no debug !', 200
 
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0')
+    app.run(host='0.0.0.0')
